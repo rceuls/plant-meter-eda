@@ -1,21 +1,13 @@
 import mqtt from 'async-mqtt';
 import { Config, Logger } from 'plant-meter-shared';
 import { LocationChangeEvent, WateringEvent } from 'plant-meter-shared/dist/model.types';
-import {
-  LocationChangeDatabaseHandler,
-  locationChangeDatabaseHandlerFileImpl,
-  WateringDatabaseHandler,
-  wateringDatabaseHandlerFileImpl,
-} from './dataAccess';
+import { IDatabase } from './dataAccess';
+import { databaseFileRepo } from './dataAccess.files';
 import { HandleIncomingEvent, handleIncomingEvent } from './eventHandler';
 
 // you could also, for example, use some kind of IRepository interface. Notice that you do _not_ want to do lifecycle management
 // of any kind inside of this method. This does one thing and does it well (i.e. subscribe to mqtt).
-const subToMqtt = async (
-  eventHandler: HandleIncomingEvent,
-  changeLocation: LocationChangeDatabaseHandler,
-  changeWater: WateringDatabaseHandler,
-) => {
+const subToMqtt = async (eventHandler: HandleIncomingEvent, database: IDatabase) => {
   const client = mqtt.connect(Config.MQTT_URL);
   client.on('error', (ex) => Logger.logError(ex));
   client.on('connect', async () => {
@@ -26,10 +18,10 @@ const subToMqtt = async (
       const parsedPayload = JSON.parse(payload.toString());
       switch (topic) {
         case Config.TOPIC_LOCATION:
-          await eventHandler(parsedPayload as LocationChangeEvent, changeLocation, changeWater);
+          await eventHandler(parsedPayload as LocationChangeEvent, database);
           break;
         case Config.TOPIC_WATERING:
-          await eventHandler(parsedPayload as WateringEvent, changeLocation, changeWater);
+          await eventHandler(parsedPayload as WateringEvent, database);
           break;
         default:
           Logger.logError(`Unsupported topic ${topic}`);
@@ -39,7 +31,4 @@ const subToMqtt = async (
   });
 };
 
-subToMqtt(handleIncomingEvent, locationChangeDatabaseHandlerFileImpl, wateringDatabaseHandlerFileImpl)
-  .then(Logger.logDebug)
-  .catch(Logger.logError)
-  .finally(Logger.logDebug);
+subToMqtt(handleIncomingEvent, databaseFileRepo).then(Logger.logDebug).catch(Logger.logError).finally(Logger.logDebug);

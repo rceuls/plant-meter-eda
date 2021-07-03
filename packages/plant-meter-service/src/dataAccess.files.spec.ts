@@ -1,6 +1,6 @@
 import { LocationChangePayload, WateringPayload } from 'plant-meter-shared/dist/model.types';
-import { locationChangeDatabaseHandlerFileImpl, wateringDatabaseHandlerFileImpl } from './dataAccess';
 import fs from 'fs';
+import { locationChangeDatabaseHandlerFileImpl, wateringDatabaseHandlerFileImpl } from './dataAccess.files';
 
 jest.mock('fs');
 

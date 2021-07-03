@@ -10,8 +10,10 @@ describe('GIVEN we have an eventhandler', () => {
         eventType: 'Watering',
         payload,
       },
-      jest.fn(),
-      mockedWateringChange,
+      {
+        locationChange: jest.fn(),
+        waterChange: mockedWateringChange,
+      },
     );
     expect(mockedWateringChange).toHaveBeenCalledTimes(1);
     expect(mockedWateringChange).toHaveBeenCalledWith(payload);
@@ -24,8 +26,10 @@ describe('GIVEN we have an eventhandler', () => {
         eventType: 'LocationChange',
         payload,
       },
-      mockedHandleLocationChange,
-      jest.fn(),
+      {
+        locationChange: mockedHandleLocationChange,
+        waterChange: jest.fn(),
+      },
     );
     expect(mockedHandleLocationChange).toHaveBeenCalledTimes(1);
     expect(mockedHandleLocationChange).toHaveBeenCalledWith(payload);

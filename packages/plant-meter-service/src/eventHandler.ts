@@ -1,23 +1,15 @@
 import { Logger, Model } from 'plant-meter-shared';
-import { LocationChangeDatabaseHandler, WateringDatabaseHandler } from './dataAccess';
+import { IDatabase, LocationChangeDatabaseHandler, WateringDatabaseHandler } from './dataAccess';
 
-export type HandleIncomingEvent = (
-  event: Model.Event,
-  changeLocation: LocationChangeDatabaseHandler,
-  water: WateringDatabaseHandler,
-) => Promise<void>;
+export type HandleIncomingEvent = (event: Model.Event, database: IDatabase) => Promise<void>;
 
-export const handleIncomingEvent: HandleIncomingEvent = async (
-  event: Model.Event,
-  changeLocation: LocationChangeDatabaseHandler,
-  water: WateringDatabaseHandler,
-) => {
+export const handleIncomingEvent: HandleIncomingEvent = async (event: Model.Event, database: IDatabase) => {
   switch (event.eventType) {
     case 'LocationChange':
-      await changeLocation(event.payload);
+      await database.locationChange(event.payload);
       break;
     case 'Watering':
-      await water(event.payload);
+      await database.waterChange(event.payload);
       break;
     default:
       // impossible to trigger, especially when using stuff like io-ts that makes it impossible
