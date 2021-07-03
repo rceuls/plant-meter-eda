@@ -1,0 +1,10 @@
+node_modules/
+lerna-debug.log
+npm-debug.log
+packages/*/dist
+.idea
+coverage/
+databases/
+database/
+/docker/mosquitto/data/**.*
+/docker/mosquitto/logs/**.*

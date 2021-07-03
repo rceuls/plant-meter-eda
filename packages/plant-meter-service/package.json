@@ -1,0 +1,25 @@
+{
+  "name": "plant-meter-service",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Raf Ceuls <rceuls@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/plant-meter-service.js",
+  "typings": "lib/plant-meter-service.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:run:service": "tsc && node ./dist/index.js",
+    "test": "jest --passWithNoTests --coverage"
+  },
+  "dependencies": {
+    "plant-meter-shared": "^0.0.0"
+  }
+}

@@ -1,0 +1,7 @@
+node_modules
+
+packages/plant-meter-client/dist/**/*
+packages/plant-meter-service/dist/**/*
+packages/plant-meter-shared/dist/**/*
+
+**/*.js
