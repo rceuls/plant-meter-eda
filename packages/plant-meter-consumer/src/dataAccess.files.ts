@@ -46,7 +46,7 @@ export const locationChangeDatabaseHandlerFileImpl: LocationChangeDatabaseHandle
     }
     fs.writeFileSync(`./database/locations/${id}.json`, JSON.stringify(toPersist, null, 2));
     upgradeLastState(id, 'Location');
-    Logger.logDebug(`Wrote file: ./database/locations/${id}.json`);
+    Logger.logDebug({ msg: `Wrote file: ./database/locations/${id}.json`, data: payload });
   } catch (ex) {
     Logger.logError(ex);
   } finally {
@@ -68,7 +68,7 @@ export const wateringDatabaseHandlerFileImpl: WateringDatabaseHandler = (payload
     }
     fs.writeFileSync(`./database/waters/${id}.json`, JSON.stringify(toPersist, null, 2));
     upgradeLastState(id, 'Watering');
-    Logger.logDebug(`Wrote file: ./database/waters/${id}.json`);
+    Logger.logDebug({ msg: `Wrote file: ./database/waters/${id}.json`, data: payload });
   } catch (ex) {
     Logger.logError(ex);
   } finally {

@@ -45,6 +45,6 @@ client.on('connect', () => {
   for (let x = 0; x < 100; x++) {
     sendEvent(createPlantWateringEvent({ amountInML: x * 100, when: new Date() })).catch(Logger.logError);
   }
-  Logger.logDebug('Wrote data to mqtt.');
+  Logger.logDebug({ msg: 'Wrote data to mqtt.' });
   client.end();
 });

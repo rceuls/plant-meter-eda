@@ -1,12 +1,12 @@
 {
-  "name": "plant-meter-service",
+  "name": "plant-meter-consumer",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "Raf Ceuls <rceuls@gmail.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "lib/plant-meter-service.js",
-  "typings": "lib/plant-meter-service.d.ts",
+  "main": "lib/plant-meter-consumer.js",
+  "typings": "lib/plant-meter-consumer.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
